@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magistralpersonal/model/Ativo.dart';
 import 'package:magistralpersonal/repository/AtivoRepository.dart';
+import 'package:magistralpersonal/views/AtivoView.dart';
 
 class AtivosPorEspecialidade extends StatefulWidget {
 
@@ -22,6 +23,12 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
     _ativoRepository = AtivoRepository();
 
     ativoFuture = _ativoRepository.buscaPorEspecialidade(widget.id);
+
+  }
+
+  _ativoView(String id) async {
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AtivoView(id)));
 
   }
 
@@ -69,6 +76,7 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
 
                           itemCount: snapshot.data.length,
                           itemBuilder: (_, index) {
+
                             var item = snapshot.data[index];
 
                             return Card(
@@ -78,16 +86,27 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
                                 child: Row(
 
                                   children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+
+                                        child: Image.asset(
+                                            "",
+
+                                        ),
+                                      )
+
+                                    ),
 
                                     Expanded(
                                       flex: 8,
                                       child: Container(
-                                        child: Text(
-                                            item.nome
-                                                + "\n"
-                                                + "\n"
-                                                + item.indicacao
-                                        ),
+                                       child: RichText(
+                                         text: TextSpan(
+
+                                           text: item.nome,
+                                           style: DefaultTextStyle.of(context).style,
+                                         ),
+                                       ),
                                       ),
 
                                     ),
@@ -98,7 +117,7 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
                                             color: Colors.blueAccent,
                                             icon: Icon(Icons.open_in_new),
                                             onPressed: () {
-
+                                                _ativoView(item.idativo.toString());
                                             },
                                           )
                                       ),
