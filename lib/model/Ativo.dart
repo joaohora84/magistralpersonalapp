@@ -48,4 +48,27 @@ class Ativo {
     );
 
   }
+
+  Map<String, dynamic> toMap(){
+
+    Map<String, dynamic> map = {
+
+      "idativo" : this.idativo,
+      "nome" : this.nome,
+      "sinonimo" : this.sinonimo,
+      "dosagem_usual" : this.dosagem_usual,
+      "dosagem_minima" : this.dosagem_minima,
+      "dosagem_maxima" : this.dosagem_maxima,
+      "indicacao" : this.indicacao,
+      "beneficios" : this.beneficios,
+      "mecanismo_acao" : this.mecanismo_acao,
+      "estudos" : this.estudos,
+      "contra_indicacao" : this.contra_indicacao
+
+    };
+
+    return map;
+
+  }
+
 }

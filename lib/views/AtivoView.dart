@@ -32,10 +32,12 @@ class _AtivoViewState extends State<AtivoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ativo" + " "),
+        title: Text("Ativo"),
       ),
-      body: Container(
+      body: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
           child: FutureBuilder(
+            future: this.ativoFuture,
             builder: (BuildContext context, AsyncSnapshot<Ativo> snapshot){
               if(!snapshot.hasData){
                 return Center(
@@ -58,14 +60,164 @@ class _AtivoViewState extends State<AtivoView> {
               } else {
 
                 var item = snapshot.data;
-                return Text(
 
+                return Column(
+                  
+                  children: <Widget> [
+                      
+                      RichText(
+                          text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                            
+                            children: <TextSpan>[
 
-                  item.nome
+                              TextSpan(
 
+                                text: item.nome,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue
 
+                                )
+                              ),
+                              TextSpan(
+                                text: "\n"
+                              ),
+                              TextSpan(
+                                text: "Indicação" + "\n",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                )
+
+                              ),
+                              TextSpan(
+                                  text: item.indicacao,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Sinônimo" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.sinonimo,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Dosagem usual" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.dosagem_usual.toString(),
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Dosagem mínima" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.dosagem_minima.toString(),
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Dosagem máxima" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.dosagem_maxima.toString(),
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Benefícios" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.beneficios,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Mecanismo de ação" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.mecanismo_acao,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Estudos" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.estudos,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: "\n" + "Contra indicação" + "\n",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+
+                              ),
+                              TextSpan(
+                                  text: item.contra_indicacao,
+                                  style: TextStyle(
+
+                                  )
+
+                              ),
+
+                            ]
+                          )
+                      ),
+
+                  ],
 
                 );
+
               }
             }
           ),

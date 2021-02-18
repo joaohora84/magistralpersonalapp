@@ -17,12 +17,15 @@ class AtivoRepository {
 
   }
 
-  Future<Ativo> buscaPorId(String id){
+  Future<Ativo> buscaPorId(String id) async {
 
-    return dio.get("http://api.magistralpersonal.com/ativo/" +
-        id).then((res) {
-         return res.data.map<Ativo>((c) => Ativo.fromMap(c)).toString() as Ativo;
-    }).catchError((err) => print(err.toString()));
+      var response = await dio.get("http://api.magistralpersonal.com/ativo/" + id);
+
+      var result = Ativo.fromMap(response.data);
+
+      print("ATIVO : " + result.nome);
+
+      return result;
 
 
   }
