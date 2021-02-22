@@ -1,6 +1,12 @@
+//import 'dart:html';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:magistralpersonal/CustomSearchDelegate.dart';
 import 'package:magistralpersonal/model/Ativo.dart';
 import 'package:magistralpersonal/repository/AtivoRepository.dart';
+import 'package:magistralpersonal/views/DrawerCustomizado.dart';
 
 class AtivoView extends StatefulWidget {
 
@@ -17,6 +23,7 @@ class _AtivoViewState extends State<AtivoView> {
   Future<Ativo> ativoFuture;
   AtivoRepository _ativoRepository;
 
+
   @override
   void initState() {
     super.initState();
@@ -32,9 +39,12 @@ class _AtivoViewState extends State<AtivoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ativo"),
+        title: Text("Ativo "),
+
       ),
+      drawer: DrawerCustomizado(),
       body: SingleChildScrollView(
+
           padding: EdgeInsets.all(16),
           child: FutureBuilder(
             future: this.ativoFuture,
@@ -61,158 +71,83 @@ class _AtivoViewState extends State<AtivoView> {
 
                 var item = snapshot.data;
 
-                return Column(
-                  
+
+
+               return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget> [
-                      
-                      RichText(
-                          text: TextSpan(
-                              style: DefaultTextStyle.of(context).style,
-                            
-                            children: <TextSpan>[
 
-                              TextSpan(
+                    Text(
 
-                                text: item.nome,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue
-
-                                )
-                              ),
-                              TextSpan(
-                                text: "\n"
-                              ),
-                              TextSpan(
-                                text: "Indicação" + "\n",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                                )
-
-                              ),
-                              TextSpan(
-                                  text: item.indicacao,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Sinônimo" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.sinonimo,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Dosagem usual" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.dosagem_usual.toString(),
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Dosagem mínima" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.dosagem_minima.toString(),
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Dosagem máxima" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.dosagem_maxima.toString(),
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Benefícios" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.beneficios,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Mecanismo de ação" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.mecanismo_acao,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Estudos" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.estudos,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: "\n" + "Contra indicação" + "\n",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  )
-
-                              ),
-                              TextSpan(
-                                  text: item.contra_indicacao,
-                                  style: TextStyle(
-
-                                  )
-
-                              ),
-
-                            ]
-                          )
+                      item.nome,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent
                       ),
+                    ),
+
+                    Text(''),
+                    Text('Dosagem usual = ' + item.dosagem_usual.toString() + ''),
+                    Text('Dosagem mínima = ' + item.dosagem_minima.toString()),
+                    Text('Dosagem máxima = ' + item.dosagem_maxima.toString()),
+                    Text(''),
+                    Text('Indicação',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.indicacao),
+                    Text(''),
+
+                    Text('Sinônimo',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.sinonimo),
+
+                    Text(''),
+                    Text('Benefícios',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.beneficios,
+
+                      style: TextStyle(
+
+                      ),
+                    ),
+                    Text(''),
+                    Text('Mecanismo de ação',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.mecanismo_acao),
+                    Text(''),
+                    Text('Estudos',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.estudos),
+                    Text(''),
+                    Text('Contra indicação',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(''),
+                    Text(item.contra_indicacao),
 
                   ],
 

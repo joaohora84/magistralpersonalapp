@@ -17,6 +17,16 @@ class AtivoRepository {
 
   }
 
+  Future<List<Ativo>> findAll(){
+
+    return dio.get("http://api.magistralpersonal.com/ativo/").then((res) {
+
+      return res.data.map<Ativo>((c) => Ativo.fromMap(c)).toList() as List<Ativo>;
+
+    }).catchError((err) => print(err.toString()));
+
+  }
+
   Future<Ativo> buscaPorId(String id) async {
 
       var response = await dio.get("http://api.magistralpersonal.com/ativo/" + id);

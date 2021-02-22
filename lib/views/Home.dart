@@ -29,11 +29,7 @@ class _HomeState extends State<Home> {
 
     LoginRepository().login(usuario);
 
-
-
     Navigator.pushNamed(context, '/Especialidades');
-
-
 
   }
 

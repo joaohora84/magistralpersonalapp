@@ -1,7 +1,11 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:magistralpersonal/CustomSearchDelegate.dart';
 import 'package:magistralpersonal/model/Ativo.dart';
 import 'package:magistralpersonal/repository/AtivoRepository.dart';
 import 'package:magistralpersonal/views/AtivoView.dart';
+import 'package:magistralpersonal/views/DrawerCustomizado.dart';
 
 class AtivosPorEspecialidade extends StatefulWidget {
 
@@ -22,7 +26,17 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
 
     _ativoRepository = AtivoRepository();
 
-    ativoFuture = _ativoRepository.buscaPorEspecialidade(widget.id);
+    if(widget.id == null || widget.id == ''){
+
+      ativoFuture = _ativoRepository.findAll();
+
+    }else{
+
+      ativoFuture = _ativoRepository.buscaPorEspecialidade(widget.id);
+
+    }
+
+
 
   }
 
@@ -44,8 +58,34 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ativos"),
+
+        title: Text(
+
+          "Ativos"
+
+        ),
+
+        actions: <Widget> [
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () async {
+                String res = await showSearch(context: context, delegate: CustomSearchDelegate());
+                setState(() {
+
+                  if(res.isNotEmpty){
+                    //_listarEspecialidadesPorNome(res);
+                  }else{
+                    // _especialidadeRepository = EspecialidadeRepository();
+                    // especialidadeFuture = _especialidadeRepository.findAll();
+                  }
+
+
+                });
+              }
+          )
+        ],
       ),
+      drawer: DrawerCustomizado(),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -86,7 +126,7 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
                                 child: Row(
 
                                   children: <Widget>[
-                                    Expanded(
+                                   /** Expanded(
                                       child: Container(
 
                                         child: Image.asset(
@@ -95,23 +135,42 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
                                         ),
                                       )
 
-                                    ),
+                                    ),**/
 
                                     Expanded(
+
                                       flex: 8,
                                       child: Container(
-                                       child: RichText(
-                                         text: TextSpan(
 
-                                           text: item.nome,
+                                        child: RichText(
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                          text: TextSpan(
                                            style: DefaultTextStyle.of(context).style,
+                                           children: <TextSpan> [
+                                             TextSpan(
+                                                 text: item.nome,
+                                                 style: TextStyle(
+                                                   fontWeight: FontWeight.bold,
+
+                                                 )),
+                                             TextSpan(text: "\n"),
+                                             TextSpan(text: "\n"),
+                                             TextSpan(
+
+                                               text: item.indicacao,
+
+                                             )
+                                           ],
+
                                          ),
                                        ),
                                       ),
 
                                     ),
                                     Expanded(
-                                      child: Container(
+
+                                    child: Container(
 
                                           child: IconButton(
                                             color: Colors.blueAccent,
@@ -126,8 +185,8 @@ class _AtivosPorEspecialidadeState extends State<AtivosPorEspecialidade> {
                                       child: Container(
 
                                           child: IconButton(
-                                            color: Colors.black54,
-                                            icon: Icon(Icons.local_printshop_sharp),
+                                            color: Colors.redAccent,
+                                            icon: Icon(Icons.picture_as_pdf),
                                             onPressed: () {
 
                                             },

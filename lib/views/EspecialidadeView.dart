@@ -3,7 +3,9 @@ import 'package:magistralpersonal/CustomSearchDelegate.dart';
 import 'package:magistralpersonal/model/Especialidade.dart';
 import 'package:magistralpersonal/repository/EspecialidadeRepository.dart';
 import 'package:magistralpersonal/service/CustomDio.dart';
+import 'package:magistralpersonal/views/AtivoView.dart';
 import 'package:magistralpersonal/views/AtivosPorEspecialidade.dart';
+import 'package:magistralpersonal/views/DrawerCustomizado.dart';
 
 class EspecialidadeView extends StatefulWidget {
 
@@ -58,10 +60,15 @@ class _EspecialidadeViewState extends State<EspecialidadeView> {
                 setState(() {
 
                   if(res.isNotEmpty){
+
                     _listarEspecialidadesPorNome(res);
+
                   }else{
-                    _especialidadeRepository = EspecialidadeRepository();
-                    especialidadeFuture = _especialidadeRepository.findAll();
+
+                     _especialidadeRepository = EspecialidadeRepository();
+                     
+                     especialidadeFuture = _especialidadeRepository.findAll();
+
                   }
 
 
@@ -70,6 +77,8 @@ class _EspecialidadeViewState extends State<EspecialidadeView> {
           )
         ],
       ),
+
+      drawer: DrawerCustomizado(),
       body: Column(
         children: <Widget>[
           Expanded(
